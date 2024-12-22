@@ -1,81 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <link rel="stylesheet" href="fireworks.css">
-    <title>Fireworks Surprise</title>
-    <style>
-      body {
-        margin: 0;
-        overflow: hidden;
-        font-family: Arial, sans-serif;
-        background-color: #000;
-        color: #fff;
-        text-align: center;
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <title>Romantic Surprise</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle, #1e003d, #000000);
+      color: #fff;
+    }
+    .instructions {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
+      color: #f8f9fa;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.7;
       }
-      .instructions {
-        position: absolute;
-        top: 20px;
-        width: 100%;
-        font-size: 1.5em;
-        font-weight: bold;
-        animation: fadeIn 2s ease-in-out infinite alternate;
+      50% {
+        opacity: 1;
       }
-      @keyframes fadeIn {
-        from {
-          opacity: 0.5;
-        }
-        to {
-          opacity: 1;
-        }
+    }
+    .message {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3em;
+      font-weight: bold;
+      text-align: center;
+      color: pink;
+      text-shadow: 0 0 10px #ff99cc, 0 0 20px #ff6699;
+    }
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      transform: rotate(45deg);
+      animation: float 5s infinite ease-in-out;
+    }
+    .heart:before,
+    .heart:after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+      top: -10px;
+      left: 0;
+    }
+    .heart:after {
+      left: 10px;
+    }
+    @keyframes float {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(45deg);
       }
-      .message {
-        display: none;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 2em;
-        font-weight: bold;
-        color: pink;
-        text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+      100% {
+        opacity: 0;
+        transform: translateY(-500px) scale(0.5) rotate(45deg);
       }
-    </style>
-  </head>
-  <body>
-    <div class="instructions">Click the Firework!</div>
-    <div class="message">Surprise! You're the light of my life ❤️</div>
-    
-    <!-- Background Music -->
-    <audio id="background-music" loop>
-      <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mp3">
-    </audio>
-    
-    <script>
-      // Play background music on load
-      const music = document.getElementById("background-music");
-      music.volume = 0.5;
-      music.play();
+    }
+  </style>
+</head>
+<body>
+  <div class="instructions">Click anywhere for a romantic surprise!</div>
+  <div class="message">You're my universe! 🌌❤️</div>
 
-      // Firework and surprise functionality
-      document.body.addEventListener("click", () => {
-        // Display surprise message
-        const message = document.querySelector(".message");
-        message.style.display = "block";
-        
-        // Animate surprise message
-        anime({
-          targets: ".message",
-          scale: [0, 1.2],
-          duration: 1500,
-          easing: "easeOutElastic",
-          direction: "alternate",
-          loop: true,
-        });
+  <script>
+    const createHeart = (x, y) => {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = `${x}px`;
+      heart.style.top = `${y}px`;
+      document.body.appendChild(heart);
+
+      // Remove heart after animation ends
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    };
+
+    const showMessage = () => {
+      const message = document.querySelector('.message');
+      message.style.display = 'block';
+      anime({
+        targets: '.message',
+        scale: [0, 1],
+        duration: 2000,
+        easing: 'easeOutElastic',
       });
-    </script>
-    <script src="fireworks.js"></script>
-  </body>
+    };
+
+    // Firework effect on click
+    const fireworkEffect = (x, y) => {
+      anime({
+        targets: document.body,
+        backgroundColor: ['#1e003d', '#ff0099', '#1e003d'],
+        duration: 1000,
+        easing: 'easeInOutQuad',
+      });
+      createHeart(x, y);
+    };
+
+    // Add click event listener
+    document.body.addEventListener('click', (event) => {
+      const { clientX: x, clientY: y } = event;
+      fireworkEffect(x, y);
+      showMessage();
+    });
+  </script>
+</body>
 </html>

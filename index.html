@@ -1,129 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <title>Romantic Surprise</title>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle, #1e003d, #000000);
-      color: #fff;
-    }
-    .instructions {
-      position: absolute;
-      top: 20px;
-      width: 100%;
-      text-align: center;
-      font-size: 2em;
-      font-weight: bold;
-      color: #f8f9fa;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 0.7;
-      }
-      50% {
-        opacity: 1;
-      }
-    }
-    .message {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 3em;
-      font-weight: bold;
-      text-align: center;
-      color: pink;
-      text-shadow: 0 0 10px #ff99cc, 0 0 20px #ff6699;
-    }
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: red;
-      transform: rotate(45deg);
-      animation: float 5s infinite ease-in-out;
-    }
-    .heart:before,
-    .heart:after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: red;
-      border-radius: 50%;
-      top: -10px;
-      left: 0;
-    }
-    .heart:after {
-      left: 10px;
-    }
-    @keyframes float {
-      0% {
-        opacity: 1;
-        transform: translateY(0) scale(1) rotate(45deg);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-500px) scale(0.5) rotate(45deg);
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="instructions">Click anywhere for a romantic surprise!</div>
-  <div class="message">You're my universe! 🌌❤️</div>
-
-  <script>
-    const createHeart = (x, y) => {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = `${x}px`;
-      heart.style.top = `${y}px`;
-      document.body.appendChild(heart);
-
-      // Remove heart after animation ends
-      setTimeout(() => {
-        heart.remove();
-      }, 5000);
-    };
-
-    const showMessage = () => {
-      const message = document.querySelector('.message');
-      message.style.display = 'block';
-      anime({
-        targets: '.message',
-        scale: [0, 1],
-        duration: 2000,
-        easing: 'easeOutElastic',
-      });
-    };
-
-    // Firework effect on click
-    const fireworkEffect = (x, y) => {
-      anime({
-        targets: document.body,
-        backgroundColor: ['#1e003d', '#ff0099', '#1e003d'],
-        duration: 1000,
-        easing: 'easeInOutQuad',
-      });
-      createHeart(x, y);
-    };
-
-    // Add click event listener
-    document.body.addEventListener('click', (event) => {
-      const { clientX: x, clientY: y } = event;
-      fireworkEffect(x, y);
-      showMessage();
-    });
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="stylesheet" href="fireworks.css">
+    <title>Fireworks</title>
+  </head>
+  <body>
+    <div class="instructions">Click the Firework!</div>
+    <script src="fireworks.js"></script>
+  </body>
 </html>

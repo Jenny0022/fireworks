@@ -5,10 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <link rel="stylesheet" href="fireworks.css">
-    <title>Fireworks</title>
+    <title>Fireworks Surprise</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+      }
+      .instructions {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+        font-size: 1.5em;
+        font-weight: bold;
+        animation: fadeIn 2s ease-in-out infinite alternate;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0.5;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .message {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2em;
+        font-weight: bold;
+        color: pink;
+        text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+      }
+    </style>
   </head>
   <body>
     <div class="instructions">Click the Firework!</div>
+    <div class="message">Surprise! You're the light of my life ❤️</div>
+    
+    <!-- Background Music -->
+    <audio id="background-music" loop>
+      <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mp3">
+    </audio>
+    
+    <script>
+      // Play background music on load
+      const music = document.getElementById("background-music");
+      music.volume = 0.5;
+      music.play();
+
+      // Firework and surprise functionality
+      document.body.addEventListener("click", () => {
+        // Display surprise message
+        const message = document.querySelector(".message");
+        message.style.display = "block";
+        
+        // Animate surprise message
+        anime({
+          targets: ".message",
+          scale: [0, 1.2],
+          duration: 1500,
+          easing: "easeOutElastic",
+          direction: "alternate",
+          loop: true,
+        });
+      });
+    </script>
     <script src="fireworks.js"></script>
   </body>
 </html>
